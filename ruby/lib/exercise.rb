@@ -1,3 +1,5 @@
+require 'byebug'
+
 module Exercise
   # Fix the first failing test by uncommenting the body of this method. Run
   # `make test` to confirm that `test_001_welcome` passes, then continue until
@@ -48,7 +50,7 @@ module Exercise
     end
 
     y = count.max_by{|k,v| v}[0]
-    locations.find{ |l| l.id == y }
+    locations.find{ |l| l.id == y }.state
   end
 
   # Given a list of products, generate a formatted message
@@ -61,5 +63,15 @@ module Exercise
   # products: [Product]
   # returns: String
   def self.format_collection(products)
+    s = ''
+    s << "Goes well with #{products.shift.name}" if products.count.positive?
+
+    for i in 0..products.length - 2
+      s << ", #{products[i].name}"
+      s << ',' if i == products.length - 2
+    end
+
+    s << " and #{products.pop.name}" if products.count.positive? 
+    s
   end
 end
