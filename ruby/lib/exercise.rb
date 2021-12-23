@@ -17,7 +17,7 @@ module Exercise
   # products: [Product]
   # returns: [Number]
   def self.select_ids_of_underarms_category_products(products)
-    products.select{ |p| p.category == 'underarms'}.map(&:id).sort
+    products.select { |p| p.category == 'underarms' }.map(&:id).sort
   end
 
   # Each order has a base_total, shipping_total, and tax_total. Adding these
@@ -29,7 +29,7 @@ module Exercise
   # orders: [Order]
   # returns: Number
   def self.total_amount_from_orders(orders)
-    orders.map{ |o| [o.base_total, o.shipping_total, o.tax_total].sum}.sum
+    orders.map { |o| [o.base_total, o.shipping_total, o.tax_total].sum }.sum
   end
 
   # Each order belongs to a user, and each user has a location. From a list
@@ -44,13 +44,13 @@ module Exercise
     count = {}
 
     orders.each do |o|
-      x = users.find{ |u| u.id == o.user_id }.location_id
+      x = users.find { |u| u.id == o.user_id }.location_id
       count[x] = 0 unless count[x]
       count[x] += 1
     end
 
-    y = count.max_by{|k,v| v}[0]
-    locations.find{ |l| l.id == y }.state
+    y = count.max_by { |_k, v| v }[0]
+    locations.find { |l| l.id == y }.state
   end
 
   # Given a list of products, generate a formatted message
@@ -66,12 +66,12 @@ module Exercise
     s = ''
     s << "Goes well with #{products.shift.name}" if products.count.positive?
 
-    for i in 0..products.length - 2
+    (0..products.length - 2).each do |i|
       s << ", #{products[i].name}"
       s << ',' if i == products.length - 2
     end
 
-    s << " and #{products.pop.name}" if products.count.positive? 
+    s << " and #{products.pop.name}" if products.count.positive?
     s
   end
 end
